@@ -201,6 +201,35 @@
       font-weight:600;
     }
 
+    /* Locked overlay */
+    .locked{ position:relative; }
+    .locked-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.9));
+      border-radius:18px;
+      z-index:15;
+      text-align:center;
+      backdrop-filter: blur(4px);
+    }
+    .lock-panel{ padding:18px; border-radius:14px; background:linear-gradient(180deg,#fff,#fff); box-shadow:0 8px 20px rgba(59,31,43,0.06); border:1px solid rgba(219,185,198,0.5); max-width:520px; }
+    .lock-title{ font-family:'Parisienne',cursive; font-size:28px; color:var(--text); }
+    .lock-desc{ margin-top:8px; color:var(--text); opacity:0.9; }
+    .game-btn{ margin-top:12px; background:#ffd3e6; border:0; padding:10px 14px; border-radius:999px; cursor:pointer; color:var(--text); font-weight:700; }
+
+    /* Memory game board */
+    .memory-board{ margin-top:12px; display:grid; grid-template-columns: repeat(4, 64px); gap:10px; justify-content:center; }
+    .card-tile{ width:64px; height:64px; perspective:600px; }
+    .card-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition: transform 400ms ease; cursor:pointer; }
+    .card-inner.is-flipped{ transform: rotateY(180deg); }
+    .card-front, .card-back{ position:absolute; inset:0; backface-visibility:hidden; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+    .card-front{ background:linear-gradient(135deg,#fff,#ffeef4); border:1px solid rgba(219,185,198,0.5); color:var(--text); }
+    .card-back{ background:linear-gradient(135deg,#ffd3e6,#ffb6c9); transform: rotateY(180deg); }
+    .card-icon{ font-size:22px; }
+
     /* Responsive */
     @media (max-width:700px){
       .hero h1{ font-size:44px; }
@@ -260,8 +289,21 @@
         <p>One year of love across miles — a celebration of heartbeats, late-night calls, and the unbreakable "us".</p>
       </section>
 
-      <section id="letter" class="card reveal" aria-labelledby="lovetitle">
+      <section id="letter" class="card reveal locked" aria-labelledby="lovetitle">
         <h2 id="lovetitle">Our Love Letter</h2>
+
+          <!-- Locked overlay: memory match game to reveal the letter -->
+          <div class="locked-overlay" aria-hidden="true">
+            <div class="lock-panel">
+              <div class="lock-title">A little surprise</div>
+              <div class="lock-desc">Match all pairs to reveal the love letter</div>
+              <div class="memory-controls">
+                <button id="startGame" class="game-btn">Start Game</button>
+                <button id="restartGame" class="game-btn" style="display:none;">Restart</button>
+              </div>
+              <div id="memoryBoard" class="memory-board" aria-hidden="true"></div>
+            </div>
+          </div>
 
         <div class="letter" id="loveContent">
 My Dearest kunji,
@@ -418,6 +460,88 @@ Mathew ❤️
       h.style.transform = 'scale(0.98)';
       setTimeout(()=> h.style.transform = 'scale(1)', 600);
     });
+
+    /* --- Mini-game: memory matching game to unlock the letter --- */
+    (function memoryGame(){
+      const startBtn = document.getElementById('startGame');
+      const restartBtn = document.getElementById('restartGame');
+      const board = document.getElementById('memoryBoard');
+      const lockedSection = document.querySelector('#letter.locked');
+      const overlay = lockedSection ? lockedSection.querySelector('.locked-overlay') : null;
+      const icons = ['🌷','🌹','🥀','🌸','💌','🌺','🌼','🌻']; // pairs set (8 unique -> 16 tiles)
+      let deck = [];
+      let first = null, second = null;
+      let lock = false;
+      let matches = 0;
+
+      function shuffle(array){
+        for(let i = array.length-1; i>0; i--){
+          const j = Math.floor(Math.random()*(i+1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function buildDeck(){
+        deck = icons.concat(icons); // duplicate
+        shuffle(deck);
+        board.innerHTML = '';
+        deck.forEach((icon, idx) => {
+          const tile = document.createElement('div');
+          tile.className = 'card-tile';
+          tile.dataset.icon = icon;
+          tile.innerHTML = `<div class="card-inner" data-idx="${idx}"><div class="card-front">?</div><div class="card-back"><span class="card-icon">${icon}</span></div></div>`;
+          board.appendChild(tile);
+        });
+      }
+
+      function flip(inner){
+        if(lock) return;
+        if(inner.classList.contains('is-flipped')) return;
+        inner.classList.add('is-flipped');
+        if(!first) { first = inner; return; }
+        second = inner;
+        lock = true;
+        const a = first.parentElement.dataset.icon || first.querySelector('.card-back .card-icon').textContent;
+        const b = second.parentElement.dataset.icon || second.querySelector('.card-back .card-icon').textContent;
+        // compare icons
+        if(a === b){
+          matches += 1;
+          first = null; second = null; lock = false;
+          if(matches >= icons.length) { setTimeout(unlockLetter, 600); }
+        } else {
+          setTimeout(()=>{
+            first.classList.remove('is-flipped');
+            second.classList.remove('is-flipped');
+            first = null; second = null; lock = false;
+          }, 700);
+        }
+      }
+
+      function attachEvents(){
+        board.querySelectorAll('.card-inner').forEach(inner => {
+          inner.addEventListener('click', () => flip(inner));
+        });
+      }
+
+      function unlockLetter(){
+        if(overlay) overlay.remove();
+        if(lockedSection) lockedSection.classList.remove('locked');
+        const letter = document.getElementById('loveContent');
+        letter.scrollIntoView({behavior:'smooth'});
+      }
+
+      function startGame(){
+        matches = 0; first = null; second = null; lock = false;
+        buildDeck();
+        attachEvents();
+        board.setAttribute('aria-hidden','false');
+        startBtn.style.display = 'none';
+        restartBtn.style.display = 'inline-block';
+      }
+
+      startBtn.addEventListener('click', startGame);
+      restartBtn.addEventListener('click', startGame);
+    })();
   </script>
 </body>
 </html>
