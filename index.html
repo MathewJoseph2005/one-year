@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy 1-Year Anniversary • Mathew & kunji</title>
+
+  <!-- Google Fonts (body: Poppins, headings: Playfair Display) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #ff9ab3;
+      --bg2: #b777ff;
+      --accent: rgba(255,255,255,0.9);
+      --glass: rgba(255,255,255,0.06);
+      --max-width: 900px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color:#fff;
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+      overflow-x:hidden;
+    }
+
+    /* Parallax background ornament layers */
+    .bg-layer{
+      position:fixed;
+      left:0; right:0;
+      height:120vh;
+      pointer-events:none;
+      z-index:0;
+      transform:translateY(0);
+    }
+    .bg-layer svg{ display:block; width:100%; height:100%; opacity:0.09; filter: blur(18px); }
+
+    /* Navigation */
+    header{
+      position:fixed;
+      top:16px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:20;
+      width:calc(100% - 40px);
+      max-width:var(--max-width);
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      align-items:center;
+    }
+    nav a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:600;
+      background:linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      padding:8px 14px;
+      border-radius:999px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    nav a:hover{ transform:translateY(-3px); transition:0.25s; }
+
+    /* Content layout */
+    main{
+      position:relative;
+      z-index:10;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:120px 20px 80px;
+      box-sizing:border-box;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      text-align:center;
+    }
+
+    /* Hero Section */
+    .hero{
+      padding:60px 20px;
+      border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      margin-bottom:48px;
+    }
+    .hero h1{
+      font-family: 'Playfair Display', serif;
+      font-size:64px;
+      margin:0;
+      letter-spacing:1px;
+      color:#fff;
+      text-shadow: 0 6px 18px rgba(90,40,100,0.3);
+      transform-origin:center;
+    }
+    .hero p{
+      margin:12px 0 0;
+      opacity:0.95;
+      font-size:18px;
+    }
+
+    /* Letter card */
+    .card{
+      margin: 24px auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:20px;
+      padding:28px 26px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      color:var(--accent);
+      text-align:left;
+      backdrop-filter: blur(6px);
+    }
+    .card h2{
+      font-family: 'Playfair Display', serif;
+      font-size:44px;
+      margin:0 0 6px;
+    }
+    .letter{
+      white-space:pre-line;
+      font-size:20px;
+      line-height:1.5;
+      color: #fff;
+      margin-top:12px;
+      padding-bottom:8px;
+    }
+
+    /* Footer / final section */
+    .final{
+      margin-top:28px;
+      padding:28px;
+      border-radius:12px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      text-align:center;
+    }
+
+    /* Floating hearts */
+    .hearts{
+      position:fixed;
+      left:0; right:0; bottom:0; top:0;
+      pointer-events:none;
+      z-index:5;
+      overflow:visible;
+    }
+    .heart{
+      position:absolute;
+      width:18px;
+      height:18px;
+      transform:translateY(0) rotate(-45deg);
+      background: #fff;
+      top:90%;
+      opacity:0.9;
+      transform-origin:center;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.2));
+    }
+    .heart::before,
+    .heart::after{
+      content:"";
+      position:absolute;
+      width:18px;
+      height:18px;
+      background: inherit;
+      border-radius:50%;
+    }
+    .heart::before{ top:-9px; left:0; }
+    .heart::after{ left:9px; top:0; }
+
+    @keyframes floatUp{
+      0%{ transform: translateY(0) scale(1) rotate(-45deg); opacity:0; }
+      5%{ opacity:0.9; }
+      80%{ opacity:0.9; }
+      100%{ transform: translateY(-120vh) scale(1.2) rotate(-45deg); opacity:0; }
+    }
+
+    /* Reveal animation */
+    .reveal{
+      opacity:0;
+      transform: translateY(18px);
+      transition: opacity 700ms cubic-bezier(.2,.9,.2,1), transform 700ms cubic-bezier(.2,.9,.2,1);
+    }
+    .reveal.visible{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Music controls */
+    .player{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:30;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      padding:10px;
+      border-radius:999px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      backdrop-filter: blur(6px);
+    }
+    .player button{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.14);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+    }
+
+    /* Responsive */
+    @media (max-width:700px){
+      .hero h1{ font-size:44px; }
+      .card{ padding:20px; }
+      .letter{ font-size:18px; }
+      header{ top:12px; gap:10px; padding:0 8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Parallax layers (decorative SVG blobs) -->
+  <div class="bg-layer" id="bg1" aria-hidden="true" style="z-index:1;">
+    <svg viewBox="0 0 1440 400" preserveAspectRatio="none">
+      <path d="M0,300 C180,380 360,220 600,260 C900,320 1080,120 1440,200 L1440 400 L0 400 Z" fill="#ffffff"></path>
+    </svg>
+  </div>
+  <div class="bg-layer" id="bg2" aria-hidden="true" style="z-index:2; opacity:0.06;">
+    <svg viewBox="0 0 1440 400" preserveAspectRatio="none">
+      <path d="M0,220 C220,100 420,320 720,260 C980,210 1120,360 1440,240 L1440 400 L0 400 Z" fill="#000000"></path>
+    </svg>
+  </div>
+
+  <!-- header removed as per user request -->
+
+  <main>
+    <div class="container">
+      <section id="hero" class="hero reveal">
+        <h1>Happy 1-Year Anniversary</h1>
+        <p>One year of love across miles — a celebration of heartbeats, late-night calls, and the unbreakable "us".</p>
+      </section>
+
+      <section id="letter" class="card reveal" aria-labelledby="lovetitle">
+        <h2 id="lovetitle">Our Love Letter</h2>
+
+        <div class="letter" id="loveContent">
+My Dearest kunji,
+
+Today we celebrate one year of our incredible long-distance love—January 14, 2026. A whole year of beating the odds, bridging continents and time zones with nothing but our hearts and screens between us.
+
+I still feel the excitement of those late-night video calls when I'd wait for your face to light up my screen, the way your voice cut through the distance like it was nothing. Remember planning trips around each other's schedules, Every "good morning" text across time zones, every virtual date night, every "I miss you" became our love language.
+
+Distance tested us, but it also showed me the depth of what we have. You weren't just my girlfriend—you were my safe place 1000+ miles away. Even now, after everything changed, those memories remain my favorite love story.
+
+Today isn't about the miles between us anymore. It's about celebrating 365 days of proving love doesn't need proximity to thrive. You've got my heart from Kerala to wherever you are. Happy 1st Anniversary, my forever long-distance love.
+Forever yours,
+Mathew ❤️
+        </div>
+      </section>
+
+      <section id="forever" class="final reveal">
+        <h3 style="font-family:'Great Vibes',cursive;font-size:34px;margin:0;">Forever In My Heart</h3>
+        <p style="margin-top:8px;opacity:0.95;">Here's to many more sunrises and late-night calls. Until we close the distance.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Floating hearts container -->
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <!-- Music player -->
+  <div class="player" aria-hidden="false">
+    <audio id="bgAudio" loop>
+      <!-- Optional: place a soft piano/instrumental at assets/soft-piano.mp3 -->
+      <source src="assets/soft-piano.mp3" type="audio/mpeg">
+      <!-- If no file exists, audio will simply be ignored -->
+      Your browser does not support the audio element.
+    </audio>
+    <button id="toggleMute" aria-pressed="false">🔈 Mute</button>
+    <button id="playPause">⏵ Play</button>
+  </div>
+
+  <script>
+    /* --- Small helper: create floating hearts dynamically --- */
+    (function createHearts(){
+      const heartsContainer = document.getElementById('hearts');
+      const count = 26;
+      for(let i=0;i<count;i++){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        // random color tinted toward pink/purple
+        const hue = 320 + Math.floor(Math.random()*40);
+        h.style.background = `linear-gradient(135deg, hsl(${hue} 85% 70% / 1), hsl(${hue-20} 70% 55% / 1))`;
+        const size = 12 + Math.random()*24;
+        h.style.width = `${size}px`;
+        h.style.height = `${size}px`;
+        h.style.left = (Math.random()*100) + '%';
+        const delay = Math.random()*6;
+        const dur = 8 + Math.random()*14;
+        h.style.animationDuration = dur + 's';
+        h.style.animationDelay = delay + 's';
+        h.style.opacity = 0;
+        // small horizontal drift via transform-origin later
+        heartsContainer.appendChild(h);
+      }
+    })();
+
+    /* --- Parallax effect for background layers --- */
+    (function parallax(){
+      const bg1 = document.getElementById('bg1');
+      const bg2 = document.getElementById('bg2');
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        bg1.style.transform = `translateY(${y * 0.08}px)`;
+        bg2.style.transform = `translateY(${y * 0.16}px)`;
+      }, {passive:true});
+    })();
+
+    /* --- Reveal on scroll (fade-in slide-up) --- */
+    (function revealOnScroll(){
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            // optionally unobserve to avoid re-triggering
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    /* --- Smooth scroll offset correction (if header covers content) --- */
+    (function anchorOffset(){
+      const header = document.querySelector('header');
+      if(!header) return;
+      const shift = header.offsetHeight + 18;
+      // for anchors: on click, offset
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const target = document.querySelector(a.getAttribute('href'));
+          if(target){
+            e.preventDefault();
+            const top = target.getBoundingClientRect().top + window.scrollY - shift;
+            window.scrollTo({top, behavior:'smooth'});
+          }
+        });
+      });
+    })();
+
+    /* --- Simple audio player with autoplay attempt and mute toggle --- */
+    (function audioControls(){
+      const audio = document.getElementById('bgAudio');
+      const muteBtn = document.getElementById('toggleMute');
+      const playBtn = document.getElementById('playPause');
+
+      let playing = false;
+      // Try to autoplay muted (allowed by modern browsers)
+      audio.muted = true;
+      audio.play().then(() => {
+        playing = true;
+        playBtn.textContent = '⏸ Pause';
+        muteBtn.textContent = '🔈 Muted';
+        muteBtn.setAttribute('aria-pressed','true');
+      }).catch(()=> {
+        // Autoplay blocked — user will need to play
+      });
+
+      muteBtn.addEventListener('click', () => {
+        audio.muted = !audio.muted;
+        muteBtn.textContent = audio.muted ? '🔈 Muted' : '🔊 Unmuted';
+        muteBtn.setAttribute('aria-pressed', String(audio.muted));
+      });
+
+      playBtn.addEventListener('click', async () => {
+        try{
+          if(playing){
+            await audio.pause();
+            playing = false;
+            playBtn.textContent = '⏵ Play';
+          } else {
+            await audio.play();
+            playing = true;
+            playBtn.textContent = '⏸ Pause';
+          }
+        }catch(e){
+          console.warn('Playback failed:', e);
+        }
+      });
+    })();
+
+    /* --- Small touch: gently scale hero heading on load --- */
+    window.addEventListener('load', () => {
+      const h = document.querySelector('.hero h1');
+      if(!h) return;
+      h.style.transform = 'scale(0.98)';
+      setTimeout(()=> h.style.transform = 'scale(1)', 600);
+    });
+  </script>
+</body>
+</html>
