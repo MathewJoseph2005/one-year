@@ -5,26 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Happy 1-Year Anniversary • Mathew & kunji</title>
 
-  <!-- Google Fonts (body: Poppins, headings: Playfair Display) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Romantic fonts: body=Libre Baskerville, headings=Playfair Display, accent script=Parisienne -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Playfair+Display:wght@400;700&family=Parisienne&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg1: #ff9ab3;
-      --bg2: #b777ff;
+      /* warmer romantic palette */
+      --bg1: #fff1f3; /* soft blush */
+      --bg2: #f6e8ff; /* pale lilac/cream */
       --accent: rgba(255,255,255,0.9);
-      --glass: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.7);
+      --text: #3b1f2b; /* deep rose for readable text */
+      --card-bg: rgba(255,255,255,0.85);
       --max-width: 900px;
     }
 
     html,body{
       height:100%;
       margin:0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Libre Baskerville', serif;
       scroll-behavior: smooth;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      color:#fff;
+      color:var(--text);
       background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
       overflow-x:hidden;
     }
@@ -40,31 +43,8 @@
     }
     .bg-layer svg{ display:block; width:100%; height:100%; opacity:0.09; filter: blur(18px); }
 
-    /* Navigation */
-    header{
-      position:fixed;
-      top:16px;
-      left:50%;
-      transform:translateX(-50%);
-      z-index:20;
-      width:calc(100% - 40px);
-      max-width:var(--max-width);
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      align-items:center;
-    }
-    nav a{
-      color:var(--accent);
-      text-decoration:none;
-      font-weight:600;
-      background:linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-      padding:8px 14px;
-      border-radius:999px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-    }
-    nav a:hover{ transform:translateY(-3px); transition:0.25s; }
+  /* Navigation (removed visually; styles kept intentionally minimal in case nav is restored) */
+  nav a{ color:var(--text); text-decoration:none; }
 
     /* Content layout */
     main{
@@ -89,17 +69,18 @@
     .hero{
       padding:60px 20px;
       border-radius:20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.55));
+      box-shadow: 0 10px 40px rgba(59,31,43,0.08);
       margin-bottom:48px;
+      color:var(--text);
     }
     .hero h1{
-      font-family: 'Playfair Display', serif;
+      font-family: 'Parisienne', cursive;
       font-size:64px;
       margin:0;
-      letter-spacing:1px;
-      color:#fff;
-      text-shadow: 0 6px 18px rgba(90,40,100,0.3);
+      letter-spacing:0.6px;
+      color:var(--text);
+      text-shadow: 0 6px 18px rgba(217,175,190,0.25);
       transform-origin:center;
     }
     .hero p{
@@ -111,24 +92,26 @@
     /* Letter card */
     .card{
       margin: 24px auto;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: var(--card-bg);
       border-radius:20px;
       padding:28px 26px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-      color:var(--accent);
+      box-shadow: 0 8px 30px rgba(59,31,43,0.06);
+      color:var(--text);
       text-align:left;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(219,185,198,0.45);
     }
     .card h2{
       font-family: 'Playfair Display', serif;
       font-size:44px;
       margin:0 0 6px;
+      color:var(--text);
     }
     .letter{
       white-space:pre-line;
       font-size:20px;
       line-height:1.5;
-      color: #fff;
+  color: var(--text);
       margin-top:12px;
       padding-bottom:8px;
     }
@@ -139,7 +122,8 @@
       padding:28px;
       border-radius:12px;
       background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      text-align:center;
+  text-align:center;
+  color: var(--text);
     }
 
     /* Floating hearts */
@@ -155,12 +139,12 @@
       width:18px;
       height:18px;
       transform:translateY(0) rotate(-45deg);
-      background: #fff;
+      background: #ffd9e6; /* soft pink hearts */
       top:90%;
       opacity:0.9;
       transform-origin:center;
       animation: floatUp linear infinite;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 6px 14px rgba(59,31,43,0.08));
     }
     .heart::before,
     .heart::after{
@@ -210,7 +194,7 @@
     .player button{
       background:transparent;
       border:1px solid rgba(255,255,255,0.14);
-      color:#fff;
+  color:var(--text);
       padding:8px 12px;
       border-radius:999px;
       cursor:pointer;
@@ -236,6 +220,34 @@
   <div class="bg-layer" id="bg2" aria-hidden="true" style="z-index:2; opacity:0.06;">
     <svg viewBox="0 0 1440 400" preserveAspectRatio="none">
       <path d="M0,220 C220,100 420,320 720,260 C980,210 1120,360 1440,240 L1440 400 L0 400 Z" fill="#000000"></path>
+    </svg>
+  </div>
+
+  <!-- Decorative florals (tulip, white rose, peony) -->
+  <div aria-hidden="true" style="position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:1;">
+    <!-- Tulip: left bottom -->
+    <svg width="220" height="220" viewBox="0 0 200 200" style="position:absolute;left:6%;bottom:6%;opacity:0.12;filter:blur(2px);" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#c94f6d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M100 160 C100 120 90 110 90 90 C90 70 110 48 122 60 C140 78 120 96 120 96" fill="#ffd9e6" stroke="none" />
+        <path d="M100 160 L100 110" stroke="#6b3d3f"/>
+        <path d="M100 120 C88 100 70 86 78 66 C90 36 120 40 132 66 C140 86 122 100 110 120" fill="#ffb6c9" stroke="#c94f6d"/>
+      </g>
+    </svg>
+
+    <!-- White rose: right mid -->
+    <svg width="260" height="260" viewBox="0 0 200 200" style="position:absolute;right:4%;top:18%;opacity:0.12;filter:blur(1px);transform:rotate(8deg);" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <circle cx="100" cy="100" r="52" fill="#fff" stroke="#f2e7ea" stroke-width="2"/>
+        <path d="M100 60 C120 72 140 82 132 102 C124 120 106 128 100 140 C94 128 76 120 68 102 C60 82 80 72 100 60" fill="#fff5f6" stroke="#f0e1e4"/>
+      </g>
+    </svg>
+
+    <!-- Peony: center top -->
+    <svg width="320" height="320" viewBox="0 0 240 240" style="position:absolute;left:50%;transform:translateX(-50%);top:6%;opacity:0.10;filter:blur(1px);" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <circle cx="120" cy="120" r="70" fill="#ffeef4" stroke="#f3d6e2" stroke-width="1"/>
+        <path d="M120 80 C140 84 160 96 152 116 C144 136 126 150 120 164 C114 150 96 136 88 116 C80 96 100 84 120 80" fill="#ffd3e6" stroke="#f0b9d0"/>
+      </g>
     </svg>
   </div>
 
@@ -267,7 +279,7 @@ Mathew ❤️
       </section>
 
       <section id="forever" class="final reveal">
-        <h3 style="font-family:'Great Vibes',cursive;font-size:34px;margin:0;">Forever In My Heart</h3>
+        <h3 style="font-family:'Playfair Display',serif;font-size:34px;margin:0;">Forever In My Heart</h3>
         <p style="margin-top:8px;opacity:0.95;">Here's to many more sunrises and late-night calls. Until we close the distance.</p>
       </section>
 
@@ -297,9 +309,9 @@ Mathew ❤️
       for(let i=0;i<count;i++){
         const h = document.createElement('div');
         h.className = 'heart';
-        // random color tinted toward pink/purple
-        const hue = 320 + Math.floor(Math.random()*40);
-        h.style.background = `linear-gradient(135deg, hsl(${hue} 85% 70% / 1), hsl(${hue-20} 70% 55% / 1))`;
+  // random soft romantic tint (pink/peach)
+  const hue = 330 + Math.floor(Math.random()*30); // pink-peach range
+  h.style.background = `linear-gradient(135deg, hsl(${hue} 85% 85% / 1), hsl(${hue-25} 70% 70% / 1))`;
         const size = 12 + Math.random()*24;
         h.style.width = `${size}px`;
         h.style.height = `${size}px`;
